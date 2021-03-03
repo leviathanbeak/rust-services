@@ -8,7 +8,7 @@ use web3::{transports::Http, Web3};
 #[derive(Debug, Clone)]
 pub enum ChainApiError {
     ChainRequestFailed(String),
-    PrivateKeyParseFailed(String)
+    PrivateKeyParseFailed(String),
 }
 
 impl From<web3::Error> for ChainApiError {
