@@ -195,6 +195,8 @@ version = "0.1.0"
 dependencies = [
  "ethabi 12.0.0",
  "hex",
+ "secp256k1",
+ "tiny-keccak 2.0.2",
  "web3",
 ]
 

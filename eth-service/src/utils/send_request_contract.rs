@@ -6,18 +6,18 @@ pub struct ExampleContract {
     send_fn: Function,
     request_fn: Function,
 }
-
+#[derive(Debug, Clone)]
 pub enum ExampleContractError {
     InvalidArgument(String),
     FailedConversion(String),
-    UnknownError(String)
+    UnknownError(String),
 }
 
 impl From<ethabi::Error> for ExampleContractError {
     fn from(error: ethabi::Error) -> Self {
         match error {
             ethabi::Error::InvalidData => Self::InvalidArgument("Invalid argument".into()),
-            _ => Self::UnknownError("Error not known to the universe".to_owned())
+            _ => Self::UnknownError("Error not known to the universe".to_owned()),
         }
     }
 }
@@ -45,7 +45,11 @@ impl ExampleContract {
         }
     }
 
-    pub fn encode_send_with_args(&self, to: &str, amount: &str) -> Result<Vec<u8>, ExampleContractError> {
+    pub fn encode_send_with_args(
+        &self,
+        to: &str,
+        amount: &str,
+    ) -> Result<Vec<u8>, ExampleContractError> {
         let to = &to[2..];
 
         let bytes = hex::decode(to)?;
@@ -56,21 +60,29 @@ impl ExampleContract {
             let res = self.send_fn.encode_input(&[to, amount])?;
             Ok(res)
         } else {
-            Err(ExampleContractError::FailedConversion("Failed to convert from decimal".to_owned()))
+            Err(ExampleContractError::FailedConversion(
+                "Failed to convert from decimal".to_owned(),
+            ))
         }
     }
 
-    pub fn encode_request_with_args(&self, from: &str, amount: &str) -> Result<Vec<u8>, ExampleContractError> {
+    pub fn encode_request_with_args(
+        &self,
+        from: &str,
+        amount: &str,
+    ) -> Result<Vec<u8>, ExampleContractError> {
         let from = &from[2..];
         let bytes = hex::decode(from)?;
         let from = Token::FixedBytes(bytes);
-        
+
         if let Ok(amount) = Uint::from_dec_str(amount) {
             let amount = Token::Uint(amount);
             let res = self.request_fn.encode_input(&[from, amount])?;
             Ok(res)
         } else {
-            Err(ExampleContractError::FailedConversion("Failed to convert from decimal".to_owned()))
+            Err(ExampleContractError::FailedConversion(
+                "Failed to convert from decimal".to_owned(),
+            ))
         }
     }
 }
