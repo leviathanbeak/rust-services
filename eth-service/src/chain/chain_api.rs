@@ -5,6 +5,7 @@ use web3::types::{
     Address, Bytes, CallRequest, SignedTransaction, TransactionParameters, H256, U256,
 };
 use web3::{transports::Http, Web3};
+
 #[derive(Debug, Clone)]
 pub enum ChainApiError {
     ChainRequestFailed(String),

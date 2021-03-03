@@ -1,6 +1,7 @@
 use ethabi::{Function, Token, Uint};
 
 use crate::utils::contract_builder::ContractBuilder;
+
 #[derive(Debug, Clone)]
 pub struct ExampleContract {
     send_fn: Function,
