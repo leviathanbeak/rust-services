@@ -2,7 +2,7 @@ use super::models::Todo;
 use sqlx::postgres::PgPool;
 
 pub async fn get_todos_for_owner_db(pool: &PgPool, owner_id: i32) -> Vec<Todo> {
-    // Prepare SQL statement
+    
     let todo_rows = sqlx::query!(
         "SELECT owner_id, todo_id, todo_name, posted_time FROM todos where owner_id = $1",
         owner_id
@@ -10,7 +10,7 @@ pub async fn get_todos_for_owner_db(pool: &PgPool, owner_id: i32) -> Vec<Todo> {
     .fetch_all(pool)
     .await
     .unwrap();
-    // Extract result
+    
     todo_rows
         .iter()
         .map(|todo_row| Todo {
@@ -30,7 +30,7 @@ pub async fn get_todo_details_db(pool: &PgPool, owner_id: i32, todo_id: i32) -> 
     .fetch_one(pool)
     .await
     .unwrap();
-    // Execute query
+    
     Todo {
         todo_id: todo_row.todo_id,
         owner_id: todo_row.owner_id,
