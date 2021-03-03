@@ -5,7 +5,7 @@ pub fn general_routes(cfg: &mut web::ServiceConfig) {
    cfg.route("/health", web::get().to(health_check_handler));
 }
 
-pub fn course_routes(cfg: &mut web::ServiceConfig) {
+pub fn todo_routes(cfg: &mut web::ServiceConfig) {
    cfg.service(
        web::scope("/todos")
            .route("/", web::post().to(post_new_todo))

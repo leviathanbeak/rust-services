@@ -10,10 +10,10 @@ pub struct Todo {
    pub posted_time: Option<NaiveDateTime>,
 }
 
-impl From<web::Json<Course>> for Todo {
+impl From<web::Json<Todo>> for Todo {
    fn from(todo: web::Json<Todo>) -> Self {
-       Course {
-           course_id: todo.todo_id,
+       Todo {
+           todo_id: todo.todo_id,
            owner_id: todo.owner_id,
            todo_name: todo.todo_name.clone(),
            posted_time: todo.posted_time,
