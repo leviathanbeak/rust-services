@@ -664,6 +664,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "crypto-service"
+version = "0.1.0"
+dependencies = [
+ "openssl",
+]
+
+[[package]]
 name = "derive_more"
 version = "0.99.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
